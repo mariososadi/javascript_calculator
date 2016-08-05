@@ -1,18 +1,24 @@
 $(document).ready(function() {
 
   cardPileGenerator();
+  
 
-    $( function() {
-      $( ".draggable" ).draggable({helper: "clone"});
+// Drag and Drop and Sum function
+  $( function() {
+    $( ".draggable" ).draggable({helper: "clone", start: function( event, ui ) { 
+        o = $(this).text();
+      }
     });
-
-
-    $( function() {
-      $( "#cardSlots" ).droppable({accept: ".draggable",
-      });
+    $( "#cardSlots" ).droppable({
+      drop: function( event, ui ) { 
+        sum = parseInt($('#total_sum').text());
+        $( this ).append('<div class="sum">'+o+'</div>');
+        sum += parseInt(o)
+        $( "#total_sum" ).empty();
+        $( "#total_sum" ).append(sum);
+      }
     });
-
-
+  });
 
 // Card Pile generator
   function cardPileGenerator(){
